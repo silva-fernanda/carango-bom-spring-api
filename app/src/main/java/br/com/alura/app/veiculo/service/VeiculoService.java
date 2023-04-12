@@ -40,23 +40,17 @@ public class VeiculoService {
         return veiculoRepository.save(veiculo);
     }
 
-    public Veiculo atualizar(Long id, Veiculo veiculo) {
-        Optional<Veiculo> veiculoOptional = veiculoRepository.findById(id);
+    public Veiculo atualizar(Long id, Veiculo veiculoAtualizado) {
+        Veiculo veiculoExistente = veiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Veiculo não encontrado com id: " + id));
 
-        if (veiculoOptional.isEmpty()) {
-            throw new IllegalArgumentException("O veículo informado não existe");
-        }
+        veiculoExistente.setMarca(veiculoAtualizado.getMarca());
+        veiculoExistente.setModelo(veiculoAtualizado.getModelo());
+        veiculoExistente.setAno(veiculoAtualizado.getAno());
+        veiculoExistente.setValor(veiculoAtualizado.getValor());
 
-        Optional<Marca> marcaOptional = marcaRepository.findById(veiculo.getMarca().getId());
-
-        if (marcaOptional.isEmpty()) {
-            throw new IllegalArgumentException("A marca informada não existe");
-        }
-
-        veiculo.setId(id);
-        veiculo.setMarca(marcaOptional.get());
-
-        return veiculoRepository.save(veiculo);
+        return veiculoRepository.save(veiculoExistente);
     }
+
 
 }

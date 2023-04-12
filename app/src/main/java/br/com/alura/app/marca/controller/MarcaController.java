@@ -14,30 +14,30 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/marcas")
+@RequestMapping("api/marcas")
 public class MarcaController {
 
     private MarcaService marcaService;
 
-    @GetMapping
+    @GetMapping("/listarmarcas")
     public List<Marca> listar() {
         return marcaService.listar();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("listarmarcasporid/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         marcaService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrarmarca")
     public ResponseEntity<Marca> cadastrar(@RequestBody MarcaDTO marcaDTO) {
         Marca marcaSalva = marcaService.salvar(marcaDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marcaSalva.getId()).toUri();
         return ResponseEntity.created(uri).body(marcaSalva);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("atualizarmarca/{id}")
     public ResponseEntity<Marca> atualizar(@PathVariable Long id, @RequestBody Marca marca) {
         Marca marcaAtualizada = marcaService.atualizar(id, marca);
         return ResponseEntity.ok(marcaAtualizada);
