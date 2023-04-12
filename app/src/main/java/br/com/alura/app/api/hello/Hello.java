@@ -1,5 +1,9 @@
 package br.com.alura.app.api.hello;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -7,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@AllArgsConstructor
+@Data
 @Entity
 public class Hello {
 	
@@ -25,37 +31,4 @@ public class Hello {
 		this.data = LocalDateTime.now();
 		this.message = "API is live, database is live, let`s code";
 	}
-
-	public String getIlive() {
-		return ilive;
-	}
-
-	public void setIlive(String ilive) {
-		this.ilive = ilive;
-	}
-
-	public LocalDateTime getData() {
-		return data;
-	}
-
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 }

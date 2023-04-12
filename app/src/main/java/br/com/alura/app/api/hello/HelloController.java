@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 	
 	@Autowired
-	private HelloRepository helloRepositoryl;
+	private HelloRepository helloRepository;
 	
 	@GetMapping
 	@ResponseBody
 	public ResponseEntity<Object> iLive() {
 		
 		Hello hello = new Hello();
-		helloRepositoryl.save(hello);
+		helloRepository.save(hello);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(hello);
 	}
