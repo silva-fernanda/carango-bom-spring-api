@@ -11,27 +11,27 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/marcas")
+@RequestMapping("api/marcas")
 public class MarcaController {
 
     @Autowired
     private MarcaService marcaService;
 
     //lista
-    @GetMapping
+    @GetMapping("/listarmarcas")
     public List<Marca> listar() {
         return marcaService.listar();
     }
 
     //exclui
-    @DeleteMapping("/{id}")
+    @DeleteMapping("excluirmarca/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         marcaService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
     //cadastra
-    @PostMapping
+    @PostMapping("/cadastrarmarca")
     public ResponseEntity<Marca> cadastrar(@RequestBody Marca marca) {
         Marca marcaSalva = marcaService.salvar(marca);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marcaSalva.getId()).toUri();
@@ -39,7 +39,7 @@ public class MarcaController {
     }
 
     //atualiza
-    @PutMapping("/{id}")
+    @PutMapping("atualizarmarca/{id}")
     public ResponseEntity<Marca> atualizar(@PathVariable Long id, @RequestBody Marca marca) {
         Marca marcaAtualizada = marcaService.atualizar(id, marca);
         return ResponseEntity.ok(marcaAtualizada);
