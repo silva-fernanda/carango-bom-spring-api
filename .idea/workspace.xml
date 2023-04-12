@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2c13c32-86f4-45e3-857f-57303b239104" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/alura/app/api/hello/Hello.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/alura/app/api/hello/Hello.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/alura/app/api/hello/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/alura/app/api/hello/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +25,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/ferna/OneDrive/Área de Trabalho/One_Work/FINAL_PROJECT/Alura/carango-bom-spring-api/app/pom.xml",
+    "last_opened_file_path": "C:/Users/joaoo/Workspace/carango-bom-spring-api/app/pom.xml",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -41,6 +38,8 @@
       <option name="presentableId" value="Default" />
       <updated>1681315752484</updated>
       <workItem from="1681315753771" duration="21000" />
+      <workItem from="1681325200023" duration="76000" />
+      <workItem from="1681325320775" duration="67000" />
     </task>
     <servers />
   </component>

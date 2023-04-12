@@ -1,7 +1,9 @@
 package br.com.alura.app.marca.service;
 
+import br.com.alura.app.marca.dto.MarcaDTO;
 import br.com.alura.app.marca.entity.Marca;
 import br.com.alura.app.marca.repository.MarcaRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class MarcaService {
 
-    @Autowired
     private MarcaRepository marcaRepository;
 
     public List<Marca> listar() {
@@ -22,7 +24,10 @@ public class MarcaService {
         marcaRepository.deleteById(id);
     }
 
-    public Marca salvar(Marca marca) {
+    public Marca salvar(MarcaDTO marcaDTO) {
+        Marca marca = new Marca();
+        marca.setNome(marcaDTO.getNome());
+        marca.setLogotipo(marcaDTO.getLogotipo());
         return marcaRepository.save(marca);
     }
 
