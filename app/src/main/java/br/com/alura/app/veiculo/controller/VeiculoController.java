@@ -1,5 +1,6 @@
 package br.com.alura.app.veiculo.controller;
 
+import br.com.alura.app.relatorio.dto.RelatorioDto;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
+
 
     //listar
     @GetMapping("/listarveiculos")
@@ -44,5 +46,6 @@ public class VeiculoController {
         Veiculo veiculoAtualizado = veiculoService.atualizar(id, veiculo);
         return ResponseEntity.ok(veiculoAtualizado);
     }
+
 }
 
