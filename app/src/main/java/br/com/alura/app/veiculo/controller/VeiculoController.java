@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("api/veiculos")
 public class VeiculoController {
     private VeiculoService veiculoService;
-
     @GetMapping("/listarveiculos")
     public List<Veiculo> listar() {
         return veiculoService.listarVeiculosAVenda();
@@ -35,7 +34,7 @@ public class VeiculoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId()).toUri();
         return ResponseEntity.created(uri).body(veiculoSalvo);
     }
-    
+
     @PutMapping("alterarveiculo/{id}")
     public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody Veiculo veiculo) {
         Veiculo veiculoAtualizado = veiculoService.atualizar(id, veiculo);
