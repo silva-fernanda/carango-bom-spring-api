@@ -4,6 +4,7 @@ import br.com.alura.app.marca.entity.Marca;
 import br.com.alura.app.marca.repository.MarcaRepository;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.repository.VeiculoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class VeiculoService {
-
-    @Autowired
     private VeiculoRepository veiculoRepository;
-
-    @Autowired
     private MarcaRepository marcaRepository;
 
     public List<Veiculo> listarVeiculosAVenda() {
         return veiculoRepository.findAll();
     }
-
 
     public void excluir(Long id) {
         veiculoRepository.deleteById(id);
