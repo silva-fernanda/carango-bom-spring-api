@@ -3,18 +3,13 @@ package br.com.alura.app.api.usuario.model;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario implements UserDetails{
 	
 	private static final long serialVersionUID = 2806685475676855126L;

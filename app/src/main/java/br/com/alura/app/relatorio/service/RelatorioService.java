@@ -5,6 +5,7 @@ import br.com.alura.app.marca.repository.MarcaRepository;
 import br.com.alura.app.relatorio.dto.RelatorioDto;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.repository.VeiculoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,12 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class RelatorioService {
-
-    @Autowired
     private MarcaRepository marcaRepository;
-
-    @Autowired
     private VeiculoRepository veiculoRepository;
 
     public Page<RelatorioDto> gerarRelatorio(Pageable pageable) {

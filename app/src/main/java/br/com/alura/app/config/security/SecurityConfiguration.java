@@ -10,11 +10,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.alura.app.api.auth.AutenticationService;
 import br.com.alura.app.api.auth.TokenService;
 import br.com.alura.app.api.usuario.repository.UsuarioRepository;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -46,8 +48,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/**").permitAll()
-			.and().csrf().disable();
+			.antMatchers("/auth").permitAll()
+				.antMatchers("/listarveiculos").permitAll()
+			.and().csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().addFilterBefore(new AuthenticationTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 		}
 	
 	// Configuração de acesso a arquivos estáticos(js, css, imagens, etc)

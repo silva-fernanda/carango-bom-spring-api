@@ -5,8 +5,11 @@ import br.com.alura.app.marca.entity.Marca;
 import br.com.alura.app.marca.repository.MarcaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +19,15 @@ public class MarcaService {
 
     private MarcaRepository marcaRepository;
 
-    public List<Marca> listar() {
-        return marcaRepository.findAll();
+    public Page<MarcaDTO> listarTodasAsMarcas(Pageable pageable) {
+         Page<Marca> marcas = marcaRepository.findAll(pageable);
+
+         return marcas.map(marca -> {
+            MarcaDTO marcaDTO = new MarcaDTO();
+            marcaDTO.setNome(marca.getNome());
+            marcaDTO.setLogotipo(marca.getLogotipo());
+            return marcaDTO;
+         });
     }
 
     public void excluir(Long id) {
