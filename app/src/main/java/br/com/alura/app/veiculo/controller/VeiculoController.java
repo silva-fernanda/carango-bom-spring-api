@@ -5,6 +5,9 @@ import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.service.VeiculoService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,10 +20,13 @@ import java.util.List;
 @RequestMapping("api/veiculos")
 public class VeiculoController {
     private VeiculoService veiculoService;
+
     @GetMapping("/listarveiculos")
-    public List<Veiculo> listar() {
-        return veiculoService.listarVeiculosAVenda();
+    public ResponseEntity<Page<Veiculo>> listar(@PageableDefault(size = 30) Pageable pageable) {
+        Page<Veiculo> veiculos = veiculoService.listarVeiculosAVenda(pageable);
+        return ResponseEntity.ok(veiculos);
     }
+
 
     @DeleteMapping("excluirporid/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

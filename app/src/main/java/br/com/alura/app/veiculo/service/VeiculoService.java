@@ -6,6 +6,8 @@ import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.repository.VeiculoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,8 +20,9 @@ public class VeiculoService {
     private VeiculoRepository veiculoRepository;
     private MarcaRepository marcaRepository;
 
-    public List<Veiculo> listarVeiculosAVenda() {
-        return veiculoRepository.findAll();
+
+    public Page<Veiculo> listarVeiculosAVenda(Pageable pageable) {
+        return veiculoRepository.findAll(pageable);
     }
 
     public void excluir(Long id) {
