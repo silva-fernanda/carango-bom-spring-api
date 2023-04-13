@@ -29,8 +29,6 @@ public class Veiculo {
     private int ano;
     @NotNull
     private BigDecimal valor;
-    @Size(max = 10000)
-    private String fotoDoCarro;
     private String tipoCombustivel;
     @NotNull
     @Size(min = 2, message = "Modelo deve ter no mínimo 2 caracteres.")

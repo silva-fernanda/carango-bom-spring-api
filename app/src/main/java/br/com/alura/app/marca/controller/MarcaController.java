@@ -24,9 +24,9 @@ public class MarcaController {
     private MarcaService marcaService;
 
     @GetMapping("/listarmarcas")
-    public ResponseEntity<Page<MarcaDTO>> listarTodos(@PageableDefault(size = 30) Pageable pageable) {
+    public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) {
         Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
-        return ResponseEntity.ok(marcas);
+        return marcas;
     }
 
     @DeleteMapping("listarmarcasporid/{id}")

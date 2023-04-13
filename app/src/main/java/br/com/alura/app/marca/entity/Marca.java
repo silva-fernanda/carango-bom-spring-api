@@ -19,7 +19,5 @@ public class Marca {
     private Long id;
     @NotNull
     private String nome;
-    @Size(max = 10000)
-    private String logotipo;
 
 }

@@ -25,7 +25,6 @@ public class MarcaService {
          return marcas.map(marca -> {
             MarcaDTO marcaDTO = new MarcaDTO();
             marcaDTO.setNome(marca.getNome());
-            marcaDTO.setLogotipo(marca.getLogotipo());
             return marcaDTO;
          });
     }
@@ -37,7 +36,6 @@ public class MarcaService {
     public Marca salvar(MarcaDTO marcaDTO) {
         Marca marca = new Marca();
         marca.setNome(marcaDTO.getNome());
-        marca.setLogotipo(marcaDTO.getLogotipo());
         return marcaRepository.save(marca);
     }
 
