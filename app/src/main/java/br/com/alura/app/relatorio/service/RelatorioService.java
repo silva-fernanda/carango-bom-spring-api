@@ -6,6 +6,9 @@ import br.com.alura.app.relatorio.dto.RelatorioDto;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,7 +24,7 @@ public class RelatorioService {
     @Autowired
     private VeiculoRepository veiculoRepository;
 
-    public List<RelatorioDto> gerarRelatorio() {
+    public Page<RelatorioDto> gerarRelatorio(Pageable pageable) {
         List<RelatorioDto> relatorio = new ArrayList<>();
         List<Marca> marcas = marcaRepository.findAll();
         for (Marca marca : marcas) {
@@ -29,12 +32,13 @@ public class RelatorioService {
             if (!veiculos.isEmpty()) {
                 BigDecimal totalValor = BigDecimal.ZERO;
                 for (Veiculo veiculo : veiculos) {
-                    totalValor = totalValor.add(BigDecimal.valueOf(veiculo.getValor()));
+                    totalValor = totalValor.add(veiculo.getValor());
                 }
                 RelatorioDto relatorioDto = new RelatorioDto(marca.getNome(), veiculos.size(), totalValor);
                 relatorio.add(relatorioDto);
             }
         }
-        return relatorio;
+        return new PageImpl<>(relatorio, pageable, relatorio.size());
     }
+
 }
