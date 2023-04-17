@@ -43,7 +43,6 @@ public class VeiculoService {
                 veiculoListDTO.setDescricao(veiculo.getDescricao());
                 veiculoListDTO.setCambio(veiculo.getCambio());
                 veiculoListDTO.setStatus(veiculo.getStatus());
-                veiculoListDTO.setNomeDaMarca(veiculo.getMarca().getNome());
 
                 return veiculoListDTO;
             });
@@ -75,7 +74,7 @@ public class VeiculoService {
             veiculo.setDescricao(veiculoDTO.getDescricao());
             veiculo.setCambio(veiculoDTO.getCambio());
 
-            Marca marca = marcaRepository.findById(veiculoDTO.getMarcaId())
+            Marca marca = marcaRepository.findById(veiculoDTO.getMarca().getId())
                     .orElseThrow(() -> new Exception("Marca não encontrada"));
 
             veiculo.setMarca(marca);
@@ -87,48 +86,38 @@ public class VeiculoService {
     }
 
 
-    public VeiculoDTO atualizarVeiculo(Long id, VeiculoDTO veiculoDTOAtualizado) throws Exception {
+    public Veiculo atualizarVeiculo(VeiculoDTO veiculoDTO) throws Exception {
         try {
-            Optional<Veiculo> veiculoOptional = veiculoRepository.findById(id);
+            Optional<Veiculo> optionalVeiculo = veiculoRepository.findById(veiculoDTO.getId());
+            if (optionalVeiculo.isPresent()) {
+                Veiculo veiculo = optionalVeiculo.get();
+                veiculo.setQuilometragem(veiculoDTO.getQuilometragem());
+                veiculo.setAno(veiculoDTO.getAno());
+                veiculo.setValor(veiculoDTO.getValor());
+                veiculo.setFotoDoCarro(veiculoDTO.getFotoDoCarro());
+                veiculo.setTipoCombustivel(veiculoDTO.getTipoCombustivel());
+                veiculo.setModelo(veiculoDTO.getModelo());
+                veiculo.setCor(veiculoDTO.getCor());
+                veiculo.setDescricao(veiculoDTO.getDescricao());
+                veiculo.setCambio(veiculoDTO.getCambio());
 
-            if (veiculoOptional.isEmpty()) {
-                throw new Exception("Veículo não encontrado com id: " + id);
+                Marca marca = marcaRepository.findById(veiculoDTO.getMarca().getId())
+                        .orElseThrow(() -> new Exception("Marca não encontrada"));
+
+                veiculo.setMarca(marca);
+
+                return veiculoRepository.save(veiculo);
+            } else {
+                throw new Exception("Veículo não encontrado");
             }
-
-            Veiculo veiculoExistente = veiculoOptional.get();
-
-            Optional<Marca> marcaOptional = marcaRepository.findById(veiculoDTOAtualizado.getMarcaId());
-
-            if (marcaOptional.isEmpty()) {
-                throw new Exception("A marca informada não existe");
-            }
-
-            Marca marca = marcaOptional.get();
-
-            veiculoExistente.setMarca(marca);
-            veiculoExistente.setModelo(veiculoDTOAtualizado.getModelo());
-            veiculoExistente.setAno(veiculoDTOAtualizado.getAno());
-            veiculoExistente.setValor(veiculoDTOAtualizado.getValor());
-
-            Veiculo veiculoAtualizado = veiculoRepository.save(veiculoExistente);
-
-            VeiculoDTO veiculoDTOSalvo = new VeiculoDTO();
-            veiculoDTOSalvo.setQuilometragem(veiculoAtualizado.getQuilometragem());
-            veiculoDTOSalvo.setAno(veiculoAtualizado.getAno());
-            veiculoDTOSalvo.setValor(veiculoAtualizado.getValor());
-            veiculoDTOSalvo.setFotoDoCarro(veiculoAtualizado.getFotoDoCarro());
-            veiculoDTOSalvo.setTipoCombustivel(veiculoAtualizado.getTipoCombustivel());
-            veiculoDTOSalvo.setModelo(veiculoAtualizado.getModelo());
-            veiculoDTOSalvo.setCor(veiculoAtualizado.getCor());
-            veiculoDTOSalvo.setDescricao(veiculoAtualizado.getDescricao());
-            veiculoDTOSalvo.setCambio(veiculoAtualizado.getCambio());
-            veiculoDTOSalvo.setMarca(marca);
-
-            return veiculoDTOSalvo;
-        } catch (Exception atualizarVeiculoException) {
-            throw new Exception("Erro ao atualizar o veículo: " + atualizarVeiculoException.getMessage());
+        } catch (Exception atualizaVeiculoException) {
+            throw new Exception("Erro ao atualizar veículo: " + atualizaVeiculoException.getMessage());
         }
     }
+
+
+
+
 
 
 }

@@ -22,5 +22,5 @@ public class VeiculoListDTO {
     private String descricao;
     private String cambio;
     private StatusVeiculoEnum status;
-    private String nomeDaMarca;
+
 }

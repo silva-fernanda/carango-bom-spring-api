@@ -1,6 +1,7 @@
 package br.com.alura.app.veiculo.dto;
 
 import br.com.alura.app.marca.entity.Marca;
+import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.enums.StatusVeiculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 public class VeiculoDTO {
+    private Long id;
     private int quilometragem;
     private int ano;
     private BigDecimal valor;
@@ -20,7 +22,6 @@ public class VeiculoDTO {
     private String cor;
     private String descricao;
     private String cambio;
-    private Long marcaId;
     private Marca marca;
 
 }

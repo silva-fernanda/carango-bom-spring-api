@@ -62,15 +62,14 @@ public class VeiculoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VeiculoDTO> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<Veiculo> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
         try {
-            VeiculoDTO veiculoDTOSalvo = veiculoService.atualizarVeiculo(id, veiculoDTO);
-            return ResponseEntity.ok(veiculoDTOSalvo);
+            veiculoDTO.setId(id);
+            Veiculo veiculoAtualizado = veiculoService.atualizarVeiculo(veiculoDTO);
+            return ResponseEntity.ok(veiculoAtualizado);
         } catch (Exception atualizarVeiculoException) {
-            System.out.println("O erro ocorrido foi: " + atualizarVeiculoException.getMessage());
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(null);
         }
-
     }
 }
 
