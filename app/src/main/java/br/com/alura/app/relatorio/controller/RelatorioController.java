@@ -21,8 +21,12 @@ public class RelatorioController {
     private RelatorioService relatorioService;
     @GetMapping
     public ResponseEntity<Page<RelatorioDto>> gerarRelatorio(@PageableDefault(size = 30) Pageable pageable) {
-        Page<RelatorioDto> relatorio = relatorioService.gerarRelatorio(pageable);
-        return ResponseEntity.ok(relatorio);
+        try {
+            Page<RelatorioDto> relatorio = relatorioService.gerarRelatorio(pageable);
+            return ResponseEntity.ok(relatorio);
+        } catch (Exception gerarRelatorioException) {
+            System.out.println("O erro ocorrido foi: " + gerarRelatorioException.getMessage());
+            return ResponseEntity.notFound().build();
+        }
     }
-
 }

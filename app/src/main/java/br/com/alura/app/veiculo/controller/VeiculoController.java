@@ -31,6 +31,7 @@ public class VeiculoController {
             Page<VeiculoListDTO> veiculos = veiculoService.listarVeiculosAVenda(pageable);
             return ResponseEntity.ok(veiculos);
         } catch (Exception listarTodosOsVeiculosException) {
+            System.out.println("O erro ocorrido foi: " + listarTodosOsVeiculosException.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum veículo encontrado", listarTodosOsVeiculosException);
         }
     }
@@ -41,6 +42,7 @@ public class VeiculoController {
             veiculoService.excluirVeiculo(id);
             return ResponseEntity.noContent().build();
         } catch (Exception excluirVeiculoException) {
+            System.out.println("O erro ocorrido foi: " + excluirVeiculoException.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Veículo não encontrado com o ID: " + id, excluirVeiculoException);
         }
     }
@@ -54,6 +56,7 @@ public class VeiculoController {
                     .buildAndExpand(veiculoSalvo.getId()).toUri();
             return ResponseEntity.created(uri).body(veiculoSalvo);
         } catch (Exception cadastrarVeiculoException) {
+            System.out.println("O erro ocorrido foi: " + cadastrarVeiculoException.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -63,9 +66,8 @@ public class VeiculoController {
         try {
             VeiculoDTO veiculoDTOSalvo = veiculoService.atualizarVeiculo(id, veiculoDTO);
             return ResponseEntity.ok(veiculoDTOSalvo);
-        } catch (ResponseStatusException atualizarVeiculoException) {
-            return ResponseEntity.notFound().build();
         } catch (Exception atualizarVeiculoException) {
+            System.out.println("O erro ocorrido foi: " + atualizarVeiculoException.getMessage());
             return ResponseEntity.badRequest().build();
         }
 

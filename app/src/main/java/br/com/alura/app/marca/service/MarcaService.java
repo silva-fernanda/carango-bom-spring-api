@@ -47,6 +47,7 @@ public class MarcaService {
         try {
             marcaRepository.deleteById(id);
         } catch (EmptyResultDataAccessException excluirMarcaException) {
+            System.out.println("O erro ocorrido foi: " + excluirMarcaException.getMessage());
             throw new Exception("ID de marca não encontrada: " + id);
         }
     }
@@ -101,7 +102,5 @@ public class MarcaService {
             throw new Exception("Erro ao atualizar marca: " + atualizarMarcaException.getMessage());
         }
     }
-
-
 
 }

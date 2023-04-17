@@ -32,7 +32,6 @@ public class MarcaController {
             Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
             return marcas;
         } catch (Exception listarTodasAsMarcasException) {
-            System.out.println("O erro ocorrido foi: " + listarTodasAsMarcasException.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, listarTodasAsMarcasException.getMessage(), listarTodasAsMarcasException);
         }
     }
@@ -43,6 +42,7 @@ public class MarcaController {
             marcaService.excluirMarca(id);
             return ResponseEntity.noContent().build();
         } catch (Exception excluirMarcaException) {
+            System.out.println("O erro ocorrido foi: " + excluirMarcaException.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID de marca não encontrada: " + id, excluirMarcaException);
         }
     }
@@ -62,12 +62,8 @@ public class MarcaController {
     public MarcaDTO atualizarMarca(@PathVariable Long id, @RequestBody MarcaDTO marcaDTO) {
         try {
             return marcaService.atualizarMarca(id, marcaDTO);
-        } catch (IllegalArgumentException atualizarMarcaExceptionArgument) {
+        } catch (Exception atualizarMarcaExceptionArgument) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao atualizar marca: " + atualizarMarcaExceptionArgument.getMessage());
-        } catch (ResponseStatusException atualizarMarcaResponseException) {
-            throw atualizarMarcaResponseException;
-        } catch (Exception atualizarMarcaException) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar marca: " + atualizarMarcaException.getMessage());
         }
     }
 

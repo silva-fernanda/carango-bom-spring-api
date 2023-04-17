@@ -56,6 +56,7 @@ public class VeiculoService {
         try {
             veiculoRepository.deleteById(id);
         } catch (EmptyResultDataAccessException excluirVeiculoException) {
+            System.out.println("O erro ocorrido foi: " + excluirVeiculoException.getMessage());
             throw new Exception("Veículo não encontrado com o ID: " + id, excluirVeiculoException);
         }
     }

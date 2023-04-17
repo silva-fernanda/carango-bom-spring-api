@@ -22,21 +22,29 @@ public class RelatorioService {
     private MarcaRepository marcaRepository;
     private VeiculoRepository veiculoRepository;
 
-    public Page<RelatorioDto> gerarRelatorio(Pageable pageable) {
-        List<RelatorioDto> relatorio = new ArrayList<>();
-        List<Marca> marcas = marcaRepository.findAll();
-        for (Marca marca : marcas) {
-            List<Veiculo> veiculos = veiculoRepository.findByMarca(marca);
-            if (!veiculos.isEmpty()) {
-                BigDecimal totalValor = BigDecimal.ZERO;
-                for (Veiculo veiculo : veiculos) {
-                    totalValor = totalValor.add(veiculo.getValor());
+    public Page<RelatorioDto> gerarRelatorio(Pageable pageable) throws Exception {
+        try {
+            List<RelatorioDto> relatorio = new ArrayList<>();
+            List<Marca> marcas = marcaRepository.findAll();
+            for (Marca marca : marcas) {
+                List<Veiculo> veiculos = veiculoRepository.findByMarca(marca);
+                if (!veiculos.isEmpty()) {
+                    BigDecimal totalValor = BigDecimal.ZERO;
+                    for (Veiculo veiculo : veiculos) {
+                        totalValor = totalValor.add(veiculo.getValor());
+                    }
+                    RelatorioDto relatorioDto = new RelatorioDto(marca.getNome(), veiculos.size(), totalValor);
+                    relatorio.add(relatorioDto);
                 }
-                RelatorioDto relatorioDto = new RelatorioDto(marca.getNome(), veiculos.size(), totalValor);
-                relatorio.add(relatorioDto);
             }
+            if (relatorio.isEmpty()) {
+                throw new Exception("Não há informações suficientes para gerar o relatório.");
+            }
+            return new PageImpl<>(relatorio, pageable, relatorio.size());
+        } catch (Exception gerarRelatorioException) {
+            throw new Exception("Erro ao gerar o relatório: " + gerarRelatorioException.getMessage());
         }
-        return new PageImpl<>(relatorio, pageable, relatorio.size());
     }
+
 
 }
