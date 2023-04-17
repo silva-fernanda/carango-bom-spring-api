@@ -25,6 +25,7 @@ public class VeiculoService {
 
         return veiculos.map(veiculo -> {
             VeiculoListDTO veiculoListDTO = new VeiculoListDTO();
+            veiculoListDTO.setId(veiculo.getId());
             veiculoListDTO.setNome(veiculo.getNome());
             veiculoListDTO.setQuilometragem(veiculo.getQuilometragem());
             veiculoListDTO.setAno(veiculo.getAno());

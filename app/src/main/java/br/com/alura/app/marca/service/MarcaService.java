@@ -20,6 +20,7 @@ public class MarcaService {
 
          return marcas.map(marca -> {
             MarcaDTO marcaDTO = new MarcaDTO();
+            marcaDTO.setId(marca.getId());
             marcaDTO.setNome(marca.getNome());
             marcaDTO.setLogotipo(marca.getLogotipo());
             return marcaDTO;
