@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -23,29 +24,28 @@ public class MarcaController {
 
     private MarcaService marcaService;
 
-    @GetMapping("/listarmarcas")
+    @GetMapping
     public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) {
         Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
         return marcas;
     }
 
-    @DeleteMapping("listarmarcasporid/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        marcaService.excluir(id);
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> excluirMarca(@PathVariable Long id) {
+        marcaService.excluirMarca(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/cadastrarmarca")
-    public ResponseEntity<Marca> cadastrar(@RequestBody MarcaDTO marcaDTO) {
-        Marca marcaSalva = marcaService.salvar(marcaDTO);
+    @PostMapping
+    public ResponseEntity<Marca> cadastrarMarca(@RequestBody MarcaDTO marcaDTO) {
+        Marca marcaSalva = marcaService.salvarMarca(marcaDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marcaSalva.getId()).toUri();
         return ResponseEntity.created(uri).body(marcaSalva);
     }
 
-    @PutMapping("atualizarmarca/{id}")
-    public ResponseEntity<Marca> atualizar(@PathVariable Long id, @RequestBody Marca marca) {
-        Marca marcaAtualizada = marcaService.atualizar(id, marca);
-        return ResponseEntity.ok(marcaAtualizada);
+    @PutMapping("/{id}")
+    public MarcaDTO atualizarMarca(@PathVariable Long id, @RequestBody MarcaDTO marcaDTO) {
+        return marcaService.atualizarMarca(id, marcaDTO);
     }
 
 }

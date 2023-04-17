@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2c13c32-86f4-45e3-857f-57303b239104" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c2c13c32-86f4-45e3-857f-57303b239104" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +23,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/joaoo/Workspace/carango-bom-spring-api/app/pom.xml",
+    "last_opened_file_path": "C:/Users/joaoo/Workspace/carango-bom-spring-api/app",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -40,6 +38,7 @@
       <workItem from="1681315753771" duration="21000" />
       <workItem from="1681325200023" duration="76000" />
       <workItem from="1681325320775" duration="67000" />
+      <workItem from="1681492036273" duration="191000" />
     </task>
     <servers />
   </component>

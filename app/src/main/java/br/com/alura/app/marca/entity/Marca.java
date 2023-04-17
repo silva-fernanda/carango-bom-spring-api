@@ -19,5 +19,6 @@ public class Marca {
     private Long id;
     @NotNull
     private String nome;
+    private String logotipo;
 
 }
