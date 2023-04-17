@@ -27,28 +27,25 @@ public class MarcaController {
     private MarcaService marcaService;
 
     @GetMapping
-    public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) throws Exception {
+    public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) {
         try {
             Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
             return marcas;
         } catch (Exception listarTodasAsMarcasException) {
             System.out.println("O erro ocorrido foi: " + listarTodasAsMarcasException.getMessage());
-            throw listarTodasAsMarcasException;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, listarTodasAsMarcasException.getMessage(), listarTodasAsMarcasException);
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirMarca(@PathVariable Long id) {
         try {
             marcaService.excluirMarca(id);
             return ResponseEntity.noContent().build();
-        } catch (ResponseStatusException excluirMarcaException) {
-            return ResponseEntity.status(excluirMarcaException.getStatus()).build();
+        } catch (Exception excluirMarcaException) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID de marca não encontrada: " + id, excluirMarcaException);
         }
     }
-
-
 
     @PostMapping
     public ResponseEntity<Marca> cadastrarMarca(@RequestBody MarcaDTO marcaDTO) {

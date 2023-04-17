@@ -19,12 +19,12 @@ public class MarcaService {
 
     private MarcaRepository marcaRepository;
 
-    public Page<MarcaDTO> listarTodasAsMarcas(Pageable pageable) {
+    public Page<MarcaDTO> listarTodasAsMarcas(Pageable pageable) throws Exception {
         try {
             Page<Marca> marcas = marcaRepository.findAll(pageable);
 
             if (marcas.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma marca encontrada.");
+                throw new Exception("Nenhuma marca encontrada.");
             }
 
             return marcas.map(marca -> {
@@ -36,22 +36,24 @@ public class MarcaService {
             });
         } catch (Exception listarTodasAsMarcasException) {
             System.out.println("O erro ocorrido foi: " + listarTodasAsMarcasException.getMessage());
-            throw listarTodasAsMarcasException;
+            throw new Exception("Erro ao listar marcas.", listarTodasAsMarcasException);
         }
     }
 
 
 
-    public void excluirMarca(Long id) {
+
+    public void excluirMarca(Long id) throws Exception {
         try {
             marcaRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException excluirMarca) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID de marca não encontrada: " + id, excluirMarca);
+        } catch (EmptyResultDataAccessException excluirMarcaException) {
+            throw new Exception("ID de marca não encontrada: " + id);
         }
     }
 
 
-    public Marca salvarMarca(MarcaDTO marcaDTO) {
+
+    public Marca salvarMarca(MarcaDTO marcaDTO) throws Exception {
         Marca marca = new Marca();
         marca.setNome(marcaDTO.getNome());
         marca.setLogotipo(marcaDTO.getLogotipo());
@@ -67,37 +69,39 @@ public class MarcaService {
 
             return marcaRepository.save(marca);
         } catch (Exception salvarMarcaException) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, salvarMarcaException.getMessage(), salvarMarcaException);
+            throw new Exception("Erro ao salvar marca: " + salvarMarcaException.getMessage());
         }
     }
 
-    public MarcaDTO atualizarMarca(Long id, MarcaDTO marcaDTO) {
+
+    public MarcaDTO atualizarMarca(Long id, MarcaDTO marcaDTO) throws Exception {
         Optional<Marca> marcaOptional = marcaRepository.findById(id);
 
         if (marcaOptional.isEmpty()) {
-            throw new IllegalArgumentException("A marca informada não existe");
+            throw new Exception("A marca informada não existe");
         }
 
         Marca marca = marcaOptional.get();
         marca.setNome(marcaDTO.getNome());
         marca.setLogotipo(marcaDTO.getLogotipo());
 
+        if (marcaRepository.findByNome(marca.getNome()).isPresent()) {
+            throw new Exception("Já existe uma marca com o mesmo nome.");
+        }
+
+        if (marcaRepository.findByLogotipo(marca.getLogotipo()).isPresent()) {
+            throw new Exception("Já existe uma marca com o mesmo logotipo.");
+        }
+
         try {
-            if (marcaRepository.findByNome(marca.getNome()).isPresent()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma marca com o mesmo nome.");
-            }
-
-            if (marcaRepository.findByLogotipo(marca.getLogotipo()).isPresent()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma marca com o mesmo logotipo.");
-            }
-
             marcaRepository.save(marca);
 
             return marcaDTO;
         } catch (Exception atualizarMarcaException) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar marca: " + atualizarMarcaException.getMessage());
+            throw new Exception("Erro ao atualizar marca: " + atualizarMarcaException.getMessage());
         }
     }
+
 
 
 }
