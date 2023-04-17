@@ -1,6 +1,8 @@
 package br.com.alura.app.veiculo.controller;
 
 import br.com.alura.app.relatorio.dto.RelatorioDto;
+import br.com.alura.app.veiculo.dto.VeiculoDTO;
+import br.com.alura.app.veiculo.dto.VeiculoListDTO;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.service.VeiculoService;
 import lombok.AllArgsConstructor;
@@ -22,30 +24,31 @@ public class VeiculoController {
     private VeiculoService veiculoService;
 
     @GetMapping("/listarveiculos")
-    public ResponseEntity<Page<Veiculo>> listar(@PageableDefault(size = 30) Pageable pageable) {
-        Page<Veiculo> veiculos = veiculoService.listarVeiculosAVenda(pageable);
+    public ResponseEntity<Page<VeiculoListDTO>> listar(@PageableDefault(size = 30) Pageable pageable) {
+        Page<VeiculoListDTO> veiculos = veiculoService.listarVeiculosAVenda(pageable);
         return ResponseEntity.ok(veiculos);
     }
 
 
-    @DeleteMapping("excluirporid/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        veiculoService.excluir(id);
+        veiculoService.excluirVeiculo(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/cadastrarveiculo")
-    public ResponseEntity<Veiculo> cadastrar(@RequestBody Veiculo veiculo) {
-        Veiculo veiculoSalvo = veiculoService.save(veiculo);
+    @PostMapping
+    public ResponseEntity<Veiculo> cadastrarVeiculo(@RequestBody VeiculoDTO veiculoDTO) {
+        Veiculo veiculoSalvo = veiculoService.salvarVeiculo(veiculoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculoSalvo.getId()).toUri();
         return ResponseEntity.created(uri).body(veiculoSalvo);
     }
 
-    @PutMapping("alterarveiculo/{id}")
-    public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody Veiculo veiculo) {
-        Veiculo veiculoAtualizado = veiculoService.atualizar(id, veiculo);
-        return ResponseEntity.ok(veiculoAtualizado);
+    @PutMapping("/{id}")
+    public ResponseEntity<VeiculoDTO> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+        VeiculoDTO veiculoDTOSalvo = veiculoService.atualizarVeiculo(id, veiculoDTO);
+        return ResponseEntity.ok(veiculoDTOSalvo);
     }
+
 
 }
 

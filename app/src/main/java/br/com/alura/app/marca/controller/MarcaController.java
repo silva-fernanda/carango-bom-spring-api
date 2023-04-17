@@ -30,7 +30,7 @@ public class MarcaController {
         return marcas;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirMarca(@PathVariable Long id) {
         marcaService.excluirMarca(id);
         return ResponseEntity.noContent().build();

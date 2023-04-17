@@ -22,6 +22,8 @@ public class Veiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    private String nome;
     private int quilometragem;
     @NotNull
     @Positive(message = "Ano deve ser um número inteiro positivo.")
@@ -29,6 +31,7 @@ public class Veiculo {
     private int ano;
     @NotNull
     private BigDecimal valor;
+    private String fotoDoCarro;
     private String tipoCombustivel;
     @NotNull
     @Size(min = 2, message = "Modelo deve ter no mínimo 2 caracteres.")
