@@ -22,8 +22,6 @@ public class Veiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    private String nome;
     private int quilometragem;
     @NotNull
     @Positive(message = "Ano deve ser um número inteiro positivo.")

@@ -26,7 +26,6 @@ public class VeiculoService {
         return veiculos.map(veiculo -> {
             VeiculoListDTO veiculoListDTO = new VeiculoListDTO();
             veiculoListDTO.setId(veiculo.getId());
-            veiculoListDTO.setNome(veiculo.getNome());
             veiculoListDTO.setQuilometragem(veiculo.getQuilometragem());
             veiculoListDTO.setAno(veiculo.getAno());
             veiculoListDTO.setValor(veiculo.getValor());
@@ -49,7 +48,6 @@ public class VeiculoService {
 
     public Veiculo salvarVeiculo(VeiculoDTO veiculoDTO)  {
         Veiculo veiculo = new Veiculo();
-        veiculo.setNome(veiculoDTO.getNome());
         veiculo.setQuilometragem(veiculoDTO.getQuilometragem());
         veiculo.setAno(veiculoDTO.getAno());
         veiculo.setValor(veiculoDTO.getValor());
@@ -111,7 +109,6 @@ public class VeiculoService {
         Veiculo veiculoAtualizado = veiculoRepository.save(veiculoExistente);
 
         VeiculoDTO veiculoDTOSalvo = new VeiculoDTO();
-        veiculoDTOSalvo.setNome(veiculoAtualizado.getNome());
         veiculoDTOSalvo.setQuilometragem(veiculoAtualizado.getQuilometragem());
         veiculoDTOSalvo.setAno(veiculoAtualizado.getAno());
         veiculoDTOSalvo.setValor(veiculoAtualizado.getValor());

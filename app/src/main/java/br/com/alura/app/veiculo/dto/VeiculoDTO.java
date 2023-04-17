@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 public class VeiculoDTO {
-    private String nome;
     private int quilometragem;
     private int ano;
     private BigDecimal valor;

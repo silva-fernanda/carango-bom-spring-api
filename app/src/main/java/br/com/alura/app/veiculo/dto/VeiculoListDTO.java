@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @Data
 public class VeiculoListDTO {
     private Long id;
-    private String nome;
     private int quilometragem;
     private int ano;
     private BigDecimal valor;
