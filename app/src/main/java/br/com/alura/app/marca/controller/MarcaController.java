@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,27 +27,51 @@ public class MarcaController {
     private MarcaService marcaService;
 
     @GetMapping
-    public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) {
-        Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
-        return marcas;
+    public Page<MarcaDTO> listarTodos(@PageableDefault(size = 30) Pageable pageable) throws Exception {
+        try {
+            Page<MarcaDTO> marcas = marcaService.listarTodasAsMarcas(pageable);
+            return marcas;
+        } catch (Exception listarTodasAsMarcasException) {
+            System.out.println("O erro ocorrido foi: " + listarTodasAsMarcasException.getMessage());
+            throw listarTodasAsMarcasException;
+        }
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirMarca(@PathVariable Long id) {
-        marcaService.excluirMarca(id);
-        return ResponseEntity.noContent().build();
+        try {
+            marcaService.excluirMarca(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResponseStatusException excluirMarcaException) {
+            return ResponseEntity.status(excluirMarcaException.getStatus()).build();
+        }
     }
+
+
 
     @PostMapping
     public ResponseEntity<Marca> cadastrarMarca(@RequestBody MarcaDTO marcaDTO) {
-        Marca marcaSalva = marcaService.salvarMarca(marcaDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marcaSalva.getId()).toUri();
-        return ResponseEntity.created(uri).body(marcaSalva);
+        try {
+            Marca marcaSalva = marcaService.salvarMarca(marcaDTO);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marcaSalva.getId()).toUri();
+            return ResponseEntity.created(uri).body(marcaSalva);
+        } catch (Exception cadastrarMarcaException) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, cadastrarMarcaException.getMessage(), cadastrarMarcaException);
+        }
     }
 
     @PutMapping("/{id}")
     public MarcaDTO atualizarMarca(@PathVariable Long id, @RequestBody MarcaDTO marcaDTO) {
-        return marcaService.atualizarMarca(id, marcaDTO);
+        try {
+            return marcaService.atualizarMarca(id, marcaDTO);
+        } catch (IllegalArgumentException atualizarMarcaExceptionArgument) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao atualizar marca: " + atualizarMarcaExceptionArgument.getMessage());
+        } catch (ResponseStatusException atualizarMarcaResponseException) {
+            throw atualizarMarcaResponseException;
+        } catch (Exception atualizarMarcaException) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar marca: " + atualizarMarcaException.getMessage());
+        }
     }
 
 }
