@@ -1,6 +1,7 @@
 package br.com.alura.app.veiculo.dto;
 
 import br.com.alura.app.marca.entity.Marca;
+import br.com.alura.app.veiculo.enums.StatusVeiculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class VeiculoDTO {
     private String cor;
     private String descricao;
     private String cambio;
+    private StatusVeiculoEnum status;
     private Marca marca;
 
 }

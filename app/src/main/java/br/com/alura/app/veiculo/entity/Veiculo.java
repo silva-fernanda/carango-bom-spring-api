@@ -37,7 +37,7 @@ public class Veiculo {
     private String descricao;
     private String cambio;
     @Enumerated(EnumType.STRING)
-    private StatusVeiculoEnum status = StatusVeiculoEnum.DISPONIVEL;
+    private StatusVeiculoEnum status;
     @ManyToOne
     private Marca marca;
 

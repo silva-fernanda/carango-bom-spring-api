@@ -72,6 +72,7 @@ public class VeiculoService {
             veiculo.setCor(veiculoDTO.getCor());
             veiculo.setDescricao(veiculoDTO.getDescricao());
             veiculo.setCambio(veiculoDTO.getCambio());
+            veiculo.setStatus(veiculoDTO.getStatus());
 
             Marca marca = marcaRepository.findById(veiculoDTO.getMarca().getId())
                     .orElseThrow(() -> new Exception("Marca não encontrada"));
@@ -99,6 +100,7 @@ public class VeiculoService {
                 veiculo.setCor(veiculoDTO.getCor());
                 veiculo.setDescricao(veiculoDTO.getDescricao());
                 veiculo.setCambio(veiculoDTO.getCambio());
+                veiculo.setStatus(veiculoDTO.getStatus());
 
                 Marca marca = marcaRepository.findById(veiculoDTO.getMarca().getId())
                         .orElseThrow(() -> new Exception("Marca não encontrada"));
