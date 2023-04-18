@@ -13,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.math.BigDecimal;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -65,5 +68,12 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @GetMapping("filtrarValor/{valorMin}-{valorMax}")
+    public Page<Veiculo> listarFiltradoPorValor(@PageableDefault(size = 30) Pageable pageable, @PathVariable BigDecimal valorMin, @PathVariable BigDecimal valorMax) {
+        return veiculoService.veiculosFiltradosPorValor(pageable, valorMin, valorMax);
+    }
+
+
 
 }

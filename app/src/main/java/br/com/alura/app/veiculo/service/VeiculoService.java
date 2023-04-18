@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -113,4 +115,29 @@ public class VeiculoService {
         }
     }
 
+//    public List<Veiculo> listarVeiculosPorValor(BigDecimal valorMaximo) {
+//        List<Veiculo> veiculos;
+//        switch (valorMaximo.intValue()) {
+//            case 10000:
+//                veiculos = veiculoRepository.findByValorLessThanEqual(BigDecimal.valueOf(10000));
+//                break;
+//            case 20000:
+//                veiculos = veiculoRepository.findByValorLessThanEqual(BigDecimal.valueOf(20000));
+//                break;
+//            case 30000:
+//                veiculos = veiculoRepository.findByValorLessThanEqual(BigDecimal.valueOf(30000));
+//                break;
+//            case 50000:
+//                veiculos = veiculoRepository.findByValorLessThanEqual(BigDecimal.valueOf(50000));
+//                break;
+//            default:
+//                veiculos = veiculoRepository.findAll();
+//                break;
+//        }
+//        return veiculos;
+//    }
+
+    public Page<Veiculo> veiculosFiltradosPorValor(Pageable pageable, BigDecimal valorMin, BigDecimal valorMax) {
+        return veiculoRepository.veiculosFiltradosPorValor(pageable, valorMin, valorMax);
+    }
 }
