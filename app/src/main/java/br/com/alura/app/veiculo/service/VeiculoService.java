@@ -10,9 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -114,11 +112,5 @@ public class VeiculoService {
             throw new Exception("Erro ao atualizar veículo: " + atualizaVeiculoException.getMessage());
         }
     }
-
-
-
-
-
-
 
 }

@@ -1,12 +1,10 @@
 package br.com.alura.app.veiculo.controller;
 
-import br.com.alura.app.relatorio.dto.RelatorioDto;
 import br.com.alura.app.veiculo.dto.VeiculoDTO;
 import br.com.alura.app.veiculo.dto.VeiculoListDTO;
 import br.com.alura.app.veiculo.entity.Veiculo;
 import br.com.alura.app.veiculo.service.VeiculoService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -47,7 +43,6 @@ public class VeiculoController {
         }
     }
 
-
     @PostMapping
     public ResponseEntity<Veiculo> cadastrarVeiculo(@RequestBody VeiculoDTO veiculoDTO) {
         try {
@@ -72,4 +67,3 @@ public class VeiculoController {
     }
 
 }
-

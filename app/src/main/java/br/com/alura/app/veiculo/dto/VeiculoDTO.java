@@ -1,8 +1,6 @@
 package br.com.alura.app.veiculo.dto;
 
 import br.com.alura.app.marca.entity.Marca;
-import br.com.alura.app.veiculo.entity.Veiculo;
-import br.com.alura.app.veiculo.enums.StatusVeiculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

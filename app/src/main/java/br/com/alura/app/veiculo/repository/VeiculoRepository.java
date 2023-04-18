@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface VeiculoRepository extends JpaRepository<Veiculo,Long> {
-
     List<Veiculo> findByMarca(Marca marca);
+
 }

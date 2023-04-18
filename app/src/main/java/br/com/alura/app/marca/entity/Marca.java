@@ -18,6 +18,7 @@ public class Marca {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Size(min = 3, message = "Marca deve ter no mínimo 2 caracteres.")
     private String nome;
     private String logotipo;
 

@@ -4,7 +4,6 @@ import br.com.alura.app.veiculo.enums.StatusVeiculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 
 @AllArgsConstructor

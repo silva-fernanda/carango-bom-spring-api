@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -61,11 +59,11 @@ public class MarcaService {
 
         try {
             if (marcaRepository.findByNome(marca.getNome()).isPresent()) {
-                throw new Exception("Já existe uma marca com o mesmo nome.");
+                throw new Exception("Já existe uma marca com este nome.");
             }
 
             if (marcaRepository.findByLogotipo(marca.getLogotipo()).isPresent()) {
-                throw new Exception("Já existe uma marca com o mesmo logotipo.");
+                throw new Exception("Já existe uma marca com este logotipo.");
             }
 
             return marcaRepository.save(marca);
@@ -79,7 +77,7 @@ public class MarcaService {
         Optional<Marca> marcaOptional = marcaRepository.findById(id);
 
         if (marcaOptional.isEmpty()) {
-            throw new Exception("A marca informada não existe");
+            throw new Exception("A marca informada não existe.");
         }
 
         Marca marca = marcaOptional.get();
@@ -87,11 +85,11 @@ public class MarcaService {
         marca.setLogotipo(marcaDTO.getLogotipo());
 
         if (marcaRepository.findByNome(marca.getNome()).isPresent()) {
-            throw new Exception("Já existe uma marca com o mesmo nome.");
+            throw new Exception("Já existe uma marca com este nome.");
         }
 
         if (marcaRepository.findByLogotipo(marca.getLogotipo()).isPresent()) {
-            throw new Exception("Já existe uma marca com o mesmo logotipo.");
+            throw new Exception("Já existe uma marca com este logotipo.");
         }
 
         try {
