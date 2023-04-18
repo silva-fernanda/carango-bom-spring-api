@@ -64,12 +64,12 @@ public class VeiculoController {
     @PutMapping("/{id}")
     public ResponseEntity<Veiculo> atualizarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
         try {
-            veiculoDTO.setId(id);
-            Veiculo veiculoAtualizado = veiculoService.atualizarVeiculo(veiculoDTO);
+            Veiculo veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculoDTO);
             return ResponseEntity.ok(veiculoAtualizado);
         } catch (Exception atualizarVeiculoException) {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
 }
 

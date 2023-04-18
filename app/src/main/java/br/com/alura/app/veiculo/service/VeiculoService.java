@@ -86,9 +86,9 @@ public class VeiculoService {
     }
 
 
-    public Veiculo atualizarVeiculo(VeiculoDTO veiculoDTO) throws Exception {
+    public Veiculo atualizarVeiculo(Long id, VeiculoDTO veiculoDTO) throws Exception {
         try {
-            Optional<Veiculo> optionalVeiculo = veiculoRepository.findById(veiculoDTO.getId());
+            Optional<Veiculo> optionalVeiculo = veiculoRepository.findById(id);
             if (optionalVeiculo.isPresent()) {
                 Veiculo veiculo = optionalVeiculo.get();
                 veiculo.setQuilometragem(veiculoDTO.getQuilometragem());
@@ -114,6 +114,7 @@ public class VeiculoService {
             throw new Exception("Erro ao atualizar veículo: " + atualizaVeiculoException.getMessage());
         }
     }
+
 
 
 
