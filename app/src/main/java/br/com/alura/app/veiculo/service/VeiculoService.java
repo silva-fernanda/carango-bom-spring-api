@@ -140,4 +140,8 @@ public class VeiculoService {
     public Page<Veiculo> veiculosFiltradosPorValor(Pageable pageable, BigDecimal valorMin, BigDecimal valorMax) {
         return veiculoRepository.veiculosFiltradosPorValor(pageable, valorMin, valorMax);
     }
+    public Page<Veiculo> veiculosFiltradosPorMarca(Pageable pageable, String nomeDaMarca) {
+        return veiculoRepository.veiculosFiltradosPorMarca(pageable, nomeDaMarca);
+    }
+
 }

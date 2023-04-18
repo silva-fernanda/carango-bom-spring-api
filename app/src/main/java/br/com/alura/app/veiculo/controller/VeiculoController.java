@@ -74,6 +74,11 @@ public class VeiculoController {
         return veiculoService.veiculosFiltradosPorValor(pageable, valorMin, valorMax);
     }
 
+    @GetMapping("filtrarMarca/{nomeDaMarca}")
+    public Page<Veiculo> listarFiltradoPorMarca(@PageableDefault(size = 30) Pageable pageable, @PathVariable String nomeDaMarca) {
+        return veiculoService.veiculosFiltradosPorMarca(pageable, nomeDaMarca);
+    }
+
 
 
 }
